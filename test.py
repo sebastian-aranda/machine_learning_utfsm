@@ -15,3 +15,10 @@ scaler = StandardScaler()
 df_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
 df_scaled['price'] = np.log(df['price'])
 df_scaled.plot()
+
+import sklearn.linear_model as lm
+X = df_scaled.iloc[:,1:] #use .ix instead, in older pandas version //Se consideran todas las filas y columnas menos 'price'
+N = X.shape[0] #Cantidad de filas
+X.insert(X.shape[1], 'intercept', np.ones(N)) #X.shape[1] = dimensionalidad de datos (18)
+y = df_scaled['price']
+print(X.head())
